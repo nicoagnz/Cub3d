@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/02/19 12:54:45 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:01:05 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 # include "libft.h"
 
-typedef enum e_validate_error
-{
-	VALIDATE_OK,
-	VALIDATE_ERROR
-}	t_validate_error;
-
 typedef struct s_map
 {
 	char **map;
@@ -28,18 +22,43 @@ typedef struct s_map
 	int	map_height;
 }	t_map;
 
+typedef struct s_config
+{
+	char	*tex_no;
+	char	*tex_so;
+	char	*tex_we;
+	char	*tex_ea;
+	int		floor_color[3];
+	int		ceiling_color[3];
+	int		floor_set;
+	int		ceiling_set;
+	int		no_set;
+	int		so_set;
+	int		we_set;
+	int		ea_set;
+}	t_config;
+
 typedef struct s_game
 {
-	t_map* map;
+	t_map*			map;
+	t_config		config_map;
 }	t_game;
 
-int		ft_validate_args(int ac, char **av);
+// VALIDATION
+void	ft_validate_args(int ac, char **av);
+int		ft_openfd(char *file);
+
+// PARSER
+void parser_map(t_game *game, char *file);
+char **ft_read_file(char *file);
+
+// ERRORS HANDLERS
+void	ft_validate_error_handler(char *error_msg);
+void	ft_parser_error_handler(char *error_msg, t_game *game);
 
 // FREE
-int	ft_error_handler(char *error_msg, t_game *game);
 void	ft_free_game(t_game *game);
 
 
-int		ft_openfd(char *file);
 
 #endif

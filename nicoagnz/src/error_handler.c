@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   openfd.c                                           :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 10:32:08 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/02/19 12:43:50 by nacuna-g         ###   ########.fr       */
+/*   Created: 2026/02/19 10:25:51 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/02/23 12:09:06 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	ft_openfd(char *file)
+void	ft_validate_error_handler(char *error_msg)
 {
-	int fd;
+	ft_putendl_fd(error_msg, 2);
+	exit (1);
+}
 
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		ft_error_handler("Error\nCould not open file");
-		return (-1);
-	}
-	close(fd);
-	return (fd);
+void	ft_parser_error_handler(char *error_msg, t_game *game)
+{
+	ft_putendl_fd(error_msg, 2);
+	if (game)
+		ft_free_game(game);
+	exit (1);
 }

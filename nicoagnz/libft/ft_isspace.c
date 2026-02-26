@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 10:25:51 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/02/26 12:14:29 by nacuna-g         ###   ########.fr       */
+/*   Created: 2026/02/26 12:51:57 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/02/26 12:52:04 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/libft.h"
 
-void	ft_validate_error(char *error_msg)
+int	ft_is_space(char c)
 {
-	ft_putendl_fd(error_msg, 2);
-	exit (1);
-}
-
-void	ft_parser_error(char *error_msg, t_game *game)
-{
-	ft_putendl_fd(error_msg, 2);
-	if (game)
-		ft_free_game(game);
-	exit (1);
+	return (c == ' ' || c == '\t');
 }

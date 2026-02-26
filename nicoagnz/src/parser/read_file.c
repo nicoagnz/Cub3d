@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 11:17:15 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/02/24 12:06:23 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:14:41 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ char **ft_read_file(char *file)
 
 	total_lines = count_lines(file);
 	if (total_lines <= 0)
-		ft_parser_error_handler("Empty or invalid file", NULL);
+		ft_parser_error("Empty or invalid file", NULL);
 	lines = malloc(sizeof(char *) * (total_lines + 1));
 	if (!lines)
-		ft_parser_error_handler("Malloc failed", NULL);
+		ft_parser_error("Malloc failed", NULL);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		free(lines);
-		ft_parser_error_handler("Could not open file", NULL);
+		ft_parser_error("Could not open file", NULL);
 	}
 	i = 0;
 	while ((line = get_next_line(fd)))

@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/02/24 12:01:05 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:14:41 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define CUB3D_H
 
 # include "libft.h"
+
+typedef enum e_parse_state
+{
+	PARSE_CONFIG,
+	PARSE_MAP
+}	t_parse_state;
 
 typedef struct s_map
 {
@@ -53,8 +59,8 @@ void parser_map(t_game *game, char *file);
 char **ft_read_file(char *file);
 
 // ERRORS HANDLERS
-void	ft_validate_error_handler(char *error_msg);
-void	ft_parser_error_handler(char *error_msg, t_game *game);
+void	ft_validate_error(char *error_msg);
+void	ft_parser_error(char *error_msg, t_game *game);
 
 // FREE
 void	ft_free_game(t_game *game);

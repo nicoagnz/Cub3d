@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_str_isdigits.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 10:10:48 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/02 11:44:06 by nacuna-g         ###   ########.fr       */
+/*   Created: 2026/03/02 12:07:25 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/03/02 12:07:46 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_isdigit(int c)
+int	ft_str_isdigits(char *str)
 {
-	while (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int i = 0;
+
+	if (!str || *str == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }

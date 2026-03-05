@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:25:48 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/03 12:41:22 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:30:06 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_parse_color(t_game *game, int color[3], int *flag, char *p)
 {
 	char	**rgb;
+	char	*num;
 	int		i;
 
 	p = ft_skip_spaces(p);
@@ -29,15 +30,20 @@ static void	ft_parse_color(t_game *game, int color[3], int *flag, char *p)
 	while (rgb[i])
 		i++;
 	if (i != 3)
+	{
+		ft_free_split(rgb);
 		ft_parser_error("Invalid color format", game);
+	}
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_str_isdigits(rgb[i]))
+		num = ft_skip_spaces(rgb[i]);
+		if (!ft_str_isdigits(num))
+		{
+			ft_free_split(rgb);
 			ft_parser_error("Color must be numeric", game);
-		color[i] = ft_atoi(rgb[i]);
-		if (color[i] < 0 || color[i] > 255)
-			ft_parser_error("Color values out of range", game);
+		}
+		color[i] = ft_atoi(num);
 		i++;
 	}
 	ft_free_split(rgb);

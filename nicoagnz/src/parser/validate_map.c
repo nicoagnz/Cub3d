@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:06:19 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/05 13:22:59 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/09 10:30:11 by nikotina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int	ft_valid_map_char(char c)
+static void	ft_set_map_dimensions(t_game *game)
 {
-	if (c == '0' || c == '1'
-		|| c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W')
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (game->map->map[i])
+		i++;
+	game->map->map_height = i;
+	game->map->map_width = ft_strlen(game->map->map[0]);
 }
 
 void	ft_validate_map_chars(t_game *game)
@@ -27,56 +29,15 @@ void	ft_validate_map_chars(t_game *game)
 	int	x;
 
 	y = 0;
-	while (y < game->map->height)
+	while (y < game->map->map_height)
 	{
 		x = 0;
-		while (x < game->map->width)
+		while (x < game->map->map_width)
 		{
 			if (!ft_valid_map_char(game->map->map[y][x]))
 				ft_parser_error("Invalid map character", game);
 			x++;
 		}
-		y++;
-	}
-}
-
-static void	ft_validate_map_shape(t_game *game)
-{
-	int	i;
-	int	width;
-
-	i = 0;
-	width = ft_strlen(game->map->map[0]);
-	while (game->map->map[i])
-	{
-		if ((int)ft_strlen(game->map->map[i]) != width)
-			ft_parser_error("Map must be rectangular", game);
-		i++;
-	}
-	game->map->width = width;
-	game->map->height = i;
-}
-
-static void	ft_validate_map_walls(t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < game->map->width)
-	{
-		if (game->map->map[0][x] != '1'
-			|| game->map->map[game->map->height - 1][x] != '1')
-			ft_parser_error("Map not closed by walls", game);
-		x++;
-	}
-
-	y = 0;
-	while (y < game->map->height)
-	{
-		if (game->map->map[y][0] != '1'
-			|| game->map->map[y][game->map->width - 1] != '1')
-			ft_parser_error("Map not closed by walls", game);
 		y++;
 	}
 }
@@ -89,13 +50,18 @@ void	ft_validate_player(t_game *game)
 
 	count = 0;
 	y = 0;
-	while (y < game->map->height)
+	while (y < game->map->map_height)
 	{
 		x = 0;
-		while (x < game->map->width)
+		while (x < game->map->map_width)
 		{
 			if (ft_strchr("NSEW", game->map->map[y][x]))
+			{
+				game->player.x = x;
+				game->player.y = y;
+				game->player.dir = game->map->map[y][x];
 				count++;
+			}
 			x++;
 		}
 		y++;
@@ -104,10 +70,41 @@ void	ft_validate_player(t_game *game)
 		ft_parser_error("Map must contain exactly one player", game);
 }
 
+static void	ft_validate_map_closed(t_game *game)
+{
+	int		x;
+	int		y;
+	char	c;
+
+	y = 0;
+	while (y < game->map->map_height)
+	{
+		x = 0;
+		while (x < game->map->map_width)
+		{
+			c = game->map->map[y][x];
+			if (c == '0' || ft_strchr("NSEW", c))
+			{
+				if (y == 0 || x == 0
+					|| y == game->map->map_height - 1
+					|| x == game->map->map_width - 1)
+					ft_parser_error("Map not closed", game);
+				if (game->map->map[y - 1][x] == ' '
+					|| game->map->map[y + 1][x] == ' '
+					|| game->map->map[y][x - 1] == ' '
+					|| game->map->map[y][x + 1] == ' ')
+					ft_parser_error("Map not closed", game);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	ft_validate_map(t_game *game)
 {
-	ft_validate_map_shape(game);
+	ft_set_map_dimensions(game);
 	ft_validate_map_chars(game);
-	ft_validate_map_walls(game);
 	ft_validate_player(game);
+	ft_validate_map_closed(game);
 }

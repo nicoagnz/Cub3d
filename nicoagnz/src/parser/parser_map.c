@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:28:00 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/05 11:19:42 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/09 10:43:08 by nikotina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int	ft_get_map_height(char **lines, int start)
+static int ft_get_map_height(char **lines, int start)
 {
-	int	i = start;
-	int	height = 0;
+	int i;
+	int height;
+	char *trim;
 
+	i = start;
+	height = 0;
 	while (lines[i])
 	{
-		char *trim = ft_skip_spaces(lines[i]);
-		if (*trim == '\0')
-			break;
-		if (!ft_is_map_line(lines[i]))
+		trim = ft_skip_spaces(lines[i]);
+		if (*trim != '\0' && !ft_is_map_line(lines[i]))
 			return (-1);
 		height++;
 		i++;
@@ -67,7 +68,7 @@ static char	**ft_rectangular_map(char **lines, int start, int height, int width)
 		ft_memset(map[i], ' ', width);
 		map[i][width] = '\0';
 	len = ft_strlen(lines[start + i]);
-	if (lines[start + i][len - 1] == '\n')
+	if (len > 0 && lines[start + i][len - 1] == '\n')
 		len--;
 	ft_memcpy(map[i], lines[start + i], len);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:47:28 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/03 12:54:29 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/09 10:02:42 by nikotina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void parser_map(t_game *game, char *file)
 
 //	FALTA:
 
-//	Que me de error si mi despues de la config no hay un salto de linea
+//	Que me de error si despues de la config no hay un salto de linea
 //	antes de entrar al mapa, ademas de que no haya configuracion doble.

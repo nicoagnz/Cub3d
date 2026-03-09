@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/05 12:19:15 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:01:46 by nikotina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	dir_x;
-	double	dir_y;
+	double	dir;
 	double	plane_x;
 	double	plane_y;
 } t_player;
@@ -69,7 +68,6 @@ typedef struct s_game
 
 // VALIDATION
 void	ft_validate_args(int ac, char **av);
-int		ft_openfd(char *file);
 
 // PARSER
 void	parser_map(t_game *game, char *file);
@@ -81,13 +79,13 @@ void	ft_parse_map(t_game *game, char **lines, int start);
 // UTILS PARSER
 char	*ft_skip_spaces(char *str);
 int		ft_is_map_line(char *line);
+int		ft_valid_map_char(char c);
 
 // ERRORS HANDLERS
 void	ft_validate_error(char *error_msg);
 void	ft_parser_error(char *error_msg, t_game *game);
 
 // VALIDATION helpers
-void	validate_render_contract(t_game *game);
 void	ft_validate_config(t_game *game);
 void	ft_validate_map(t_game *game);
 

@@ -48,7 +48,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean
 	@rm -rf $(MLX42_BUILD)
-	@echo "✓ Everything cleaned"
+	@echo "✓ Everything cleaned ✓"
 
 re: fclean all
 

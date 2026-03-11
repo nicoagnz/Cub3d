@@ -44,24 +44,13 @@ double compute_perp_dist(t_game *game, t_dda *dda, double ray_dir_x,
 {
 	double	perp_dist;
 
+	(void)game;
+	(void)ray_dir_x;
+	(void)ray_dir_y;
 	if (dda->side == 0)
-	{
-		if (ray_dir_x == 0)
-			perp_dist = 1e30;
-		else
-			perp_dist = (dda->map_x - game->player.x
-					+ (1 - dda->step_x) / 2.0) / ray_dir_x;
-	}
+		perp_dist = dda->side_dist_x - dda->delta_dist_x;
 	else
-	{
-		if (ray_dir_y == 0)
-			perp_dist = 1e30;
-		else
-			perp_dist = (dda->map_y - game->player.y
-					+ (1 - dda->step_y) / 2.0) / ray_dir_y;
-	}
-	if (perp_dist < 0)
-		perp_dist = -perp_dist;
+		perp_dist = dda->side_dist_y - dda->delta_dist_y;
 	if (perp_dist < MIN_PERP_DIST)
 		perp_dist = MIN_PERP_DIST;
 	return (perp_dist);

@@ -41,14 +41,14 @@ $(NAME): $(LIBFT_A) $(MLX42_A) $(OBJ)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@make -C $(LIBFT_DIR) clean
-	@echo "✓ Objects cleaned"
+	@$(MAKE) -s --no-print-directory -C $(LIBFT_DIR) clean
+	@printf "\033[0;32m✓ Objects cleaned\033[0m\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C $(LIBFT_DIR) fclean
+	@$(MAKE) -s --no-print-directory -C $(LIBFT_DIR) fclean
 	@rm -rf $(MLX42_BUILD)
-	@echo "✓ Everything cleaned ✓"
+	@printf "\033[0;32m✓ Everything cleaned\033[0m\n"
 
 re: fclean all
 

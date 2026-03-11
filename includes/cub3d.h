@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/10 11:00:30 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/11 11:55:53 by ctaboada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MOVE_SPEED 0.06
 # define ROT_SPEED 0.04
 # define PLAYER_RADIUS 0.15
-# define MIN_PERP_DIST 0.65	
+# define MIN_PERP_DIST 0.01	
 
 typedef struct s_map
 {

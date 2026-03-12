@@ -6,13 +6,13 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 11:17:15 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/10 11:00:30 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/12 10:49:28 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int count_lines(char *file)
+static int	count_lines(char *file)
 {
 	int		fd;
 	int		count;
@@ -33,31 +33,24 @@ static int count_lines(char *file)
 	return (count);
 }
 
-char **ft_read_file(char *file)
+char	**ft_read_file(char *file)
 {
-	int fd;
-	char *line;
-	char **lines;
-	int i;
-	int total_lines;
+	int		fd;
+	char	*line;
+	char	**lines;
+	int		i;
 
-	total_lines = count_lines(file);
-	if (total_lines <= 0)
-		ft_parser_error("Empty or invalid file", NULL);
-	lines = malloc(sizeof(char *) * (total_lines + 1));
+	lines = malloc(sizeof(char *) * (count_lines(file) + 1));
 	if (!lines)
 		ft_parser_error("Malloc failed", NULL);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		free(lines);
-		ft_parser_error("Could not open file", NULL);
-	}
+	fd = open_file(file);
 	i = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		ft_strtrim_newline(line);
 		lines[i++] = line;
+		line = get_next_line(fd);
 	}
 	lines[i] = NULL;
 	close(fd);

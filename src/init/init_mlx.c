@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/12 10:30:31 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/03/12 10:31:56 by nacuna-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 void	load_textures(t_game *game)
@@ -43,10 +55,11 @@ void	init_mlx(t_game *game)
 	game->frame.img = mlx_new_image(game->mlx, game->win_w, game->win_h);
 	if (!game->frame.img)
 		ft_validate_error("Error\nFailed to create frame image");
-	if(mlx_image_to_window(game->mlx, game->frame.img, 0, 0) < 0)
+	if (mlx_image_to_window(game->mlx, game->frame.img, 0, 0) < 0)
 		ft_validate_error("Error\nFailed to put attach frame to window");
 	render_base(game);
 }
+
 static void	game_loop(void *param)
 {
 	t_game	*game;
@@ -58,8 +71,9 @@ static void	game_loop(void *param)
 		return ;
 	move_player(game);
 	render_base(game);
-	render_walls(game); // siguiente paso: raycasting por columnas
+	render_walls(game);
 }
+
 void	start_game(t_game *game)
 {
 	mlx_loop_hook(game->mlx, game_loop, game);

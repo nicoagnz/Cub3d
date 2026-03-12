@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:14:13 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/05 12:27:41 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/12 10:53:56 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static int	ft_is_config_line(char *line)
 {
-	char *p;
+	char	*p;
 
 	p = ft_skip_spaces(line);
 	if (!p || *p == '\0')
 		return (0);
 	if ((ft_strncmp(p, "NO", 2) == 0
-		|| ft_strncmp(p, "SO", 2) == 0
-		|| ft_strncmp(p, "WE", 2) == 0
-		|| ft_strncmp(p, "EA", 2) == 0)
+			|| ft_strncmp(p, "SO", 2) == 0
+			|| ft_strncmp(p, "WE", 2) == 0
+			|| ft_strncmp(p, "EA", 2) == 0)
 		&& ft_is_space(p[2]))
 		return (1);
 	if ((p[0] == 'F' || p[0] == 'C') && ft_is_space(p[1]))
@@ -32,16 +32,16 @@ static int	ft_is_config_line(char *line)
 
 static int	ft_config_complete(t_config *config)
 {
-	if (!config->no_set || !config->so_set || !config->we_set 
+	if (!config->no_set || !config->so_set || !config->we_set
 		|| !config->ea_set || !config->floor_set || !config->ceiling_set)
 		return (0);
 	return (1);
 }
 
-void ft_parse_file(t_game *game, char **lines)
+void	ft_parse_file(t_game *game, char **lines)
 {
-	char	*line;							// Si no se mete al while (lines[i]) no estaria inicializado
-	int		i = 0;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while (lines[i])
@@ -57,7 +57,7 @@ void ft_parse_file(t_game *game, char **lines)
 			if (!ft_config_complete(&game->config_map))
 				ft_parser_error("Map found before config complete", game);
 			ft_parse_map(game, lines, i);
-			return;
+			return ;
 		}
 		else
 			ft_parser_error("Invalid line in config section", game);

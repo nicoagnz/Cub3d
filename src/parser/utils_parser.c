@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:24:25 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/09 10:29:07 by nikotina         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:19:06 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-char *ft_skip_spaces(char *str)
+char	*ft_skip_spaces(char *str)
 {
 	while (ft_is_space(*str))
 		str++;
-	return str;
+	return (str);
 }
 
 int	ft_is_map_line(char *line)
 {
-	char *p;
+	char	*p;
 
 	p = line;
 	if (!p || *p == '\0')

@@ -3,55 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:28:00 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/09 10:43:08 by nikotina         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:17:57 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int ft_get_map_height(char **lines, int start)
+static void	copy_map_line(char *dst, char *src, int width)
 {
-	int i;
-	int height;
-	char *trim;
-
-	i = start;
-	height = 0;
-	while (lines[i])
-	{
-		trim = ft_skip_spaces(lines[i]);
-		if (*trim != '\0' && !ft_is_map_line(lines[i]))
-			return (-1);
-		height++;
-		i++;
-	}
-	return (height);
-}
-
-static int	ft_get_map_width(char **lines, int start, int height)
-{
-	int	i = 0;
-	int	max = 0;
 	int	len;
 
-	while (i < height)
-	{
-		len = ft_strlen(lines[start + i]);
-		if (len > max)
-			max = len;
-		i++;
-	}
-	return (max);
+	ft_memset(dst, ' ', width);
+	dst[width] = '\0';
+	len = ft_strlen(src);
+	if (len > 0 && src[len - 1] == '\n')
+		len--;
+	if (len > width)
+		len = width;
+	ft_memcpy(dst, src, len);
 }
 
 static char	**ft_rectangular_map(char **lines, int start, int height, int width)
 {
 	char	**map;
 	int		i;
-	int		len;
 
 	map = malloc(sizeof(char *) * (height + 1));
 	if (!map)
@@ -65,12 +43,7 @@ static char	**ft_rectangular_map(char **lines, int start, int height, int width)
 			free_partial_map(map, i);
 			return (NULL);
 		}
-		ft_memset(map[i], ' ', width);
-		map[i][width] = '\0';
-	len = ft_strlen(lines[start + i]);
-	if (len > 0 && lines[start + i][len - 1] == '\n')
-		len--;
-	ft_memcpy(map[i], lines[start + i], len);
+		copy_map_line(map[i], lines[start + i], width);
 		i++;
 	}
 	map[height] = NULL;

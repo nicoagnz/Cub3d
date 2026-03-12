@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:40:03 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/09 11:01:19 by nikotina         ###   ########.fr       */
+/*   Updated: 2026/03/12 10:30:05 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_openfd(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -25,7 +25,7 @@ static int	ft_openfd(char *file)
 
 void	ft_validate_args(int ac, char **av)
 {
-	int len;
+	int	len;
 
 	if (ac != 2)
 		ft_validate_error("Usage: ./cub3d <map.cub>");

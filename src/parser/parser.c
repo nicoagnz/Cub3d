@@ -6,15 +6,15 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:47:28 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/10 11:29:55 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/12 10:35:32 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void parser_map(t_game *game, char *file)
+void	parser_map(t_game *game, char *file)
 {
-	char **file_lines;
+	char	**file_lines;
 
 	file_lines = ft_read_file(file);
 	ft_parse_file(game, file_lines);

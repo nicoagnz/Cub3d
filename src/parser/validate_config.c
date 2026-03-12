@@ -6,15 +6,15 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 12:29:31 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/05 11:03:08 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/12 10:55:12 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void validate_color_range(int color[3], t_game *game)
+static void	validate_color_range(int color[3], t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 3)
@@ -25,7 +25,7 @@ static void validate_color_range(int color[3], t_game *game)
 	}
 }
 
-static void validate_colors(t_config *cfg, t_game *game)
+static void	validate_colors(t_config *cfg, t_game *game)
 {
 	if (!cfg->floor_set || !cfg->ceiling_set)
 		ft_parser_error("Missing floor or ceiling color", game);
@@ -35,13 +35,13 @@ static void validate_colors(t_config *cfg, t_game *game)
 
 static void	validate_textures(t_config *cfg, t_game *game)
 {
-	if (!cfg->tex_no || !cfg->tex_so ||
-		!cfg->tex_we || !cfg->tex_ea)
+	if (!cfg->tex_no || !cfg->tex_so
+		|| !cfg->tex_we || !cfg->tex_ea)
 		ft_parser_error("Missing texture", game);
-	if (*cfg->tex_no == '\0' ||
-		*cfg->tex_so == '\0' ||
-		*cfg->tex_we == '\0' ||
-		*cfg->tex_ea == '\0')
+	if (*cfg->tex_no == '\0'
+		|| *cfg->tex_so == '\0'
+		|| *cfg->tex_we == '\0'
+		|| *cfg->tex_ea == '\0')
 		ft_parser_error("Empty texture path", game);
 }
 

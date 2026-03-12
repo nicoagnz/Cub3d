@@ -1,48 +1,63 @@
-#include "../includes/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/12 11:09:00 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/03/12 11:17:31 by nacuna-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int	is_spawn(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
+#include "../includes/cub3d.h"
 
 static void	set_player_orientation(t_player *p, char spawn)
 {
 	if (spawn == 'N')
 	{
-		p->dir_x = 0.0;
-		p->dir_y = -1.0;
-		p->plane_x = 0.66;
-		p->plane_y = 0.0;
+		set_dir(p, 0.0, -1.0);
+		set_plane(p, 0.66, 0.0);
 	}
 	else if (spawn == 'S')
 	{
-		p->dir_x = 0.0;
-		p->dir_y = 1.0;
-		p->plane_x = -0.66;
-		p->plane_y = 0.0;
+		set_dir(p, 0.0, 1.0);
+		set_plane(p, -0.66, 0.0);
 	}
 	else if (spawn == 'E')
 	{
-		p->dir_x = 1.0;
-		p->dir_y = 0.0;
-		p->plane_x = 0.0;
-		p->plane_y = 0.66;
+		set_dir(p, 1.0, 0.0);
+		set_plane(p, 0.0, 0.66);
 	}
 	else if (spawn == 'W')
 	{
-		p->dir_x = -1.0;
-		p->dir_y = 0.0;
-		p->plane_x = 0.0;
-		p->plane_y = -0.66;
+		set_dir(p, -1.0, 0.0);
+		set_plane(p, 0.0, -0.66);
+	}
+}
+
+static void	process_spawn(t_game *game, int x, int y, int *count)
+{
+	char	c;
+
+	c = game->map->map[y][x];
+	if (is_spawn(c))
+	{
+		(*count)++;
+		if (*count > 1)
+			ft_validate_error("Error\nPlayer init: multiple spawns");
+		game->player.x = (double)x + 0.5;
+		game->player.y = (double)y + 0.5;
+		set_player_orientation(&game->player, c);
+		game->map->map[y][x] = '0';
 	}
 }
 
 void	init_player(t_game *game)
 {
-	int		y;
-	int		x;
-	int		spawn_count;
-	char	c;
+	int	y;
+	int	x;
+	int	spawn_count;
 
 	if (!game || !game->map || !game->map->map)
 		ft_validate_error("Error\nPlayer init: map not initialized");
@@ -53,17 +68,7 @@ void	init_player(t_game *game)
 		x = 0;
 		while (game->map->map[y][x])
 		{
-			c = game->map->map[y][x];
-			if (is_spawn(c))
-			{
-				spawn_count++;
-				if (spawn_count > 1)
-					ft_validate_error("Error\nPlayer init: multiple spawns");
-				game->player.x = (double)x + 0.5;
-				game->player.y = (double)y + 0.5;
-				set_player_orientation(&game->player, c);
-				game->map->map[y][x] = '0';
-			}
+			process_spawn(game, x, y, &spawn_count);
 			x++;
 		}
 		y++;

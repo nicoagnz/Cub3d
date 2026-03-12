@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   set_player_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 10:00:00 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 10:29:29 by nacuna-g         ###   ########.fr       */
+/*   Created: 2026/03/12 11:17:07 by nacuna-g          #+#    #+#             */
+/*   Updated: 2026/03/12 11:17:27 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	main(int ac, char **av)
+int	is_spawn(char c)
 {
-	t_game	game;
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
 
-	ft_validate_args(ac, av);
-	init_game(&game);
-	parser_map(&game, av[1]);
-	init_player(&game);
-	init_mlx(&game);
-	start_game(&game);
-	return (0);
+void	set_dir(t_player *p, double x, double y)
+{
+	p->dir_x = x;
+	p->dir_y = y;
+}
+
+void	set_plane(t_player *p, double x, double y)
+{
+	p->plane_x = x;
+	p->plane_y = y;
 }

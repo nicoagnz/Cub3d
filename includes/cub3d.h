@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:49:43 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:00:27 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,22 @@ typedef struct s_dda
 	double	ray_dir_y;
 }	t_dda;
 
+typedef struct s_texdraw
+{
+	int		start;
+	int		end;
+	int		line_height;
+	int		tex_x;
+	double	perp_dist;
+}	t_texdraw;
+
 // VALIDATION
 void		ft_validate_args(int ac, char **av);
 
 // PARSER
-void		parser_map(t_game *game, char *file);
+int			parser(t_game *game, char *file);
 char		**ft_read_file(char *file);
-void		ft_parse_file(t_game *game, char **lines);
+int			ft_parse_file(t_game *game, char **lines);
 void		ft_free_split(char **split);
 void		validate_render_contract(t_game *game);
 
@@ -107,22 +116,23 @@ int			ft_valid_map_char(char c);
 int			ft_str_isdigits(char *str);
 char		*ft_strtrim_newline(char *str);
 void		free_partial_map(char **map, int height);
-void		ft_parse_config_line(t_game *game, char *line);
-void		ft_parse_map(t_game *game, char **lines, int start);
+int			ft_parse_config_line(t_game *game, char *line);
+int			ft_parse_map(t_game *game, char **lines, int start);
 int			open_file(char *file);
 int			ft_get_map_height(char **lines, int start);
 int			ft_get_map_width(char **lines, int start, int height);
+int			check_texture_file(char *path);
 
 // PARSER VALIDATION
-void		ft_validate_config(t_game *game);
-void		ft_validate_map(t_game *game);
+int			ft_validate_config(t_game *game);
+int			ft_validate_map(t_game *game);
 void		ft_set_map_dimensions(t_game *game);
-void		ft_validate_map_chars(t_game *game);
-void		ft_validate_player(t_game *game);
+int			ft_validate_map_chars(t_game *game);
+int			ft_validate_player(t_game *game);
 
 // ERRORS HANDLERS
 void		ft_validate_error(char *error_msg);
-void		ft_parser_error(char *error_msg, t_game *game);
+int			ft_handler_error(char *error_msg);
 
 // FREE
 void		ft_free_game(t_game *game);
@@ -151,8 +161,8 @@ void		init_dda_step(t_game *game, double ray_dir_x, double ray_dir_y,
 				t_dda *dda);
 int			is_wall_cell(t_game *game, int map_x, int map_y);
 double		compute_perp_dist(t_game *game, t_dda *dda);
-void		draw_texture(t_game *game, int x, t_dda *dda, int limits[2],
-					double perp_dist);
+void		draw_texture(t_game *game, int x, t_dda *dda,
+				t_texdraw *d);
 
 // TEXTURES
 uint32_t	get_texture_pixel(mlx_texture_t *tex, int x, int y);

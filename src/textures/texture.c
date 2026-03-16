@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 12:59:16 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:59:30 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 11:10:36 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ uint32_t	get_texture_pixel(mlx_texture_t *tex, int x, int y)
 {
 	uint8_t	*pixel;
 
-	if (!tex || x < 0 || x >= (int)tex->width || y < 0 || y >= (int)tex->height)
+	if (!tex || x < 0 || x >= (int)tex->width || y < 0
+		|| y >= (int)tex->height)
 		return (0x00FF00FF);
 	pixel = &tex->pixels[(y * tex->width + x) * tex->bytes_per_pixel];
-	return ((pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3]);
+	return ((pixel[0] << 24) | (pixel[1] << 16)
+		| (pixel[2] << 8) | pixel[3]);
 }
 
 static mlx_texture_t	*get_texture(t_game *game, t_dda *dda)
@@ -35,8 +37,8 @@ static mlx_texture_t	*get_texture(t_game *game, t_dda *dda)
 	return (game->config_map.texture_no);
 }
 
-static int	calc_tex_x(t_game *game, t_dda *dda, mlx_texture_t *tex,
-				double perp_dist)
+static int	calc_tex_x(t_game *game, t_dda *dda,
+			mlx_texture_t *tex, double perp_dist)
 {
 	double	wall_x;
 	int		tex_x;
@@ -58,43 +60,41 @@ static int	calc_tex_x(t_game *game, t_dda *dda, mlx_texture_t *tex,
 	return (tex_x);
 }
 
-static void	draw_column_texture(t_game *game, int x, mlx_texture_t *tex,
-				int data[3], int line_height)
+static void	draw_column_texture(t_game *game, int x,
+			mlx_texture_t *tex, t_texdraw *d)
 {
 	double		step;
 	double		tex_pos;
 	int			y;
-	uint32_t	color;
 	int			tex_y;
+	uint32_t	color;
 
-	step = 1.0 * tex->height / line_height;
-	tex_pos = (data[0] - game->win_h / 2 + line_height / 2) * step;
-	y = data[0];
-	while (y <= data[1])
+	step = 1.0 * tex->height / d->line_height;
+	tex_pos = (d->start - game->win_h / 2
+			+ d->line_height / 2) * step;
+	y = d->start;
+	while (y <= d->end)
 	{
 		tex_y = (int)tex_pos;
 		if (tex_y < 0)
 			tex_y = 0;
 		else if (tex_y >= (int)tex->height)
 			tex_y = tex->height - 1;
-		color = get_texture_pixel(tex, data[2], tex_y);
+		color = get_texture_pixel(tex, d->tex_x, tex_y);
 		mlx_put_pixel(game->frame.img, x, y, color);
 		tex_pos += step;
 		y++;
 	}
 }
 
-void	draw_texture(t_game *game, int x, t_dda *dda, int limits[2],
-				double perp_dist)
+void	draw_texture(t_game *game, int x, t_dda *dda,
+		t_texdraw *d)
 {
 	mlx_texture_t	*tex;
-	int				data[3];
-	int				line_height;
+	int				tex_x;
 
 	tex = get_texture(game, dda);
-	line_height = (int)(game->win_h / perp_dist);
-	data[0] = limits[0];
-	data[1] = limits[1];
-	data[2] = calc_tex_x(game, dda, tex, perp_dist);
-	draw_column_texture(game, x, tex, data, line_height);
+	tex_x = calc_tex_x(game, dda, tex, d->perp_dist);
+	d->tex_x = tex_x;
+	draw_column_texture(game, x, tex, d);
 }

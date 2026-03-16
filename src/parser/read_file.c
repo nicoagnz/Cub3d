@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 11:17:15 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 10:49:28 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:02:51 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**ft_read_file(char *file)
 
 	lines = malloc(sizeof(char *) * (count_lines(file) + 1));
 	if (!lines)
-		ft_parser_error("Malloc failed", NULL);
+		ft_handler_error("Malloc failed");
 	fd = open_file(file);
 	i = 0;
 	line = get_next_line(fd);

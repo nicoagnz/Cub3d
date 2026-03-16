@@ -2,7 +2,7 @@
 NAME = cub3d
 
 CC			= cc
-CFLAGS		= -Wall -Wextra
+CFLAGS		= -Wall -Wextra -Werror
 INCLUDE_DIR	= includes
 LIBFT_DIR	= libft
 LIBFT_A		= $(LIBFT_DIR)/libft.a

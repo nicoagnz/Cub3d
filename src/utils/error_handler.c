@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:25:51 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/10 11:41:31 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:00:27 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	ft_validate_error(char *error_msg)
 	exit (1);
 }
 
-void	ft_parser_error(char *error_msg, t_game *game)
+int	ft_handler_error(char *error_msg)
 {
 	ft_putendl_fd(error_msg, 2);
-	if (game)
-		ft_free_game(game);
-	exit (1);
+	return (1);
 }

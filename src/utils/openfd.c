@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:32:08 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:59:46 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:03:32 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	open_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		ft_parser_error("Could not open file", NULL);
+		ft_handler_error("Could not open file");
 	return (fd);
 }
 

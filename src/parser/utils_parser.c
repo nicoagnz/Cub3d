@@ -6,11 +6,22 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:24:25 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:19:06 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 12:44:20 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int	check_texture_file(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close(fd);
+	return (0);
+}
 
 char	*ft_skip_spaces(char *str)
 {

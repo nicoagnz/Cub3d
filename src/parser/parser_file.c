@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:14:13 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 10:53:56 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:02:28 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_config_complete(t_config *config)
 	return (1);
 }
 
-void	ft_parse_file(t_game *game, char **lines)
+int	ft_parse_file(t_game *game, char **lines)
 {
 	char	*line;
 	int		i;
@@ -51,17 +51,21 @@ void	ft_parse_file(t_game *game, char **lines)
 		if (*line == '\0')
 			;
 		else if (ft_is_config_line(line))
-			ft_parse_config_line(game, line);
+		{
+			if (ft_parse_config_line(game, line) != 0)
+				return (1);
+		}
 		else if (ft_is_map_line(line))
 		{
 			if (!ft_config_complete(&game->config_map))
-				ft_parser_error("Map found before config complete", game);
-			ft_parse_map(game, lines, i);
-			return ;
+				return (ft_handler_error("Map found before config complete"));
+			if (ft_parse_map(game, lines, i) != 0)
+				return (1);
+			return (0);
 		}
 		else
-			ft_parser_error("Invalid line in config section", game);
+			return (ft_handler_error("Invalid line in config section"));
 		i++;
 	}
-	ft_parser_error("No map found", game);
+	return (ft_handler_error("No map found"));
 }

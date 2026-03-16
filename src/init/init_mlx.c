@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:30:31 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 10:31:56 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:01:10 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,12 @@ void	load_textures(t_game *game)
 	mlx_texture_t	*tex_ea;
 
 	tex_no = mlx_load_png(game->config_map.tex_no);
-	if (!tex_no)
-		ft_validate_error("Error\nFailed to load north texture");
 	game->config_map.texture_no = tex_no;
 	tex_so = mlx_load_png(game->config_map.tex_so);
-	if (!tex_so)
-		ft_validate_error("Error\nFailed to load south texture");
 	game->config_map.texture_so = tex_so;
 	tex_we = mlx_load_png(game->config_map.tex_we);
-	if (!tex_we)
-		ft_validate_error("Error\nFailed to load west texture");
 	game->config_map.texture_we = tex_we;
 	tex_ea = mlx_load_png(game->config_map.tex_ea);
-	if (!tex_ea)
-		ft_validate_error("Error\nFailed to load east texture");
 	game->config_map.texture_ea = tex_ea;
 }
 
@@ -50,13 +42,13 @@ void	init_mlx(t_game *game)
 	validate_render_contract(game);
 	game->mlx = mlx_init(game->win_w, game->win_h, "Cub3D", true);
 	if (!game->mlx)
-		ft_validate_error("Error\nFailed to initialize MLX");
+		ft_handler_error("Error\nFailed to initialize MLX");
 	load_textures(game);
 	game->frame.img = mlx_new_image(game->mlx, game->win_w, game->win_h);
 	if (!game->frame.img)
-		ft_validate_error("Error\nFailed to create frame image");
+		ft_handler_error("Error\nFailed to create frame image");
 	if (mlx_image_to_window(game->mlx, game->frame.img, 0, 0) < 0)
-		ft_validate_error("Error\nFailed to put attach frame to window");
+		ft_handler_error("Error\nFailed to put attach frame to window");
 	render_base(game);
 }
 

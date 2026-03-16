@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:28:00 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:17:57 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:06:17 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,35 @@ static char	**ft_rectangular_map(char **lines, int start, int height, int width)
 	return (map);
 }
 
-static void	ft_check_no_extra(char **lines, int index, t_game *game)
+static int	ft_check_no_extra(char **lines, int index)
 {
 	while (lines[index])
 	{
 		if (*ft_skip_spaces(lines[index]) != '\0')
-			ft_parser_error("Extra content after map", game);
+			return (ft_handler_error("Extra content after map"));
 		index++;
 	}
+	return (0);
 }
 
-void	ft_parse_map(t_game *game, char **lines, int start)
+int	ft_parse_map(t_game *game, char **lines, int start)
 {
 	int	height;
 	int	width;
 
 	height = ft_get_map_height(lines, start);
 	if (height <= 0)
-		ft_parser_error("Invalid or empty map", game);
+		return (ft_handler_error("Invalid or empty map"));
 	width = ft_get_map_width(lines, start, height);
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
-		ft_parser_error("Malloc failed", game);
+		return (ft_handler_error("Malloc failed"));
 	game->map->map = ft_rectangular_map(lines, start, height, width);
 	if (!game->map->map)
-		ft_parser_error("Malloc failed", game);
+		return (ft_handler_error("Malloc failed"));
 	game->map->map_height = height;
 	game->map->map_width = width;
-	ft_check_no_extra(lines, start + height, game);
+	if (ft_check_no_extra(lines, start + height) != 0)
+		return (1);
+	return (0);
 }

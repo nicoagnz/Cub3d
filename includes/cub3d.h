@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/17 12:30:21 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:44:45 by ctaboada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void		init_mlx(t_game *game);
 void		start_game(t_game *game);
 void		init_player(t_game *game);
 void		load_textures(t_game *game);
+void		fatal_init_error(t_game *game, char *msg);
 
 //INIT PLAYER UTILS
 int			is_spawn(char c);

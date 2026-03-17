@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:30:31 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/16 13:01:10 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:41:31 by ctaboada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	fatal_init_error(t_game *game, char *msg)
+{
+	ft_free_game(game);
+	ft_validate_error(msg);
+}
 
 void	load_textures(t_game *game)
 {
@@ -42,13 +48,13 @@ void	init_mlx(t_game *game)
 	validate_render_contract(game);
 	game->mlx = mlx_init(game->win_w, game->win_h, "Cub3D", true);
 	if (!game->mlx)
-		ft_handler_error("Error\nFailed to initialize MLX");
+		fatal_init_error(game, "Error\nFailed to initialize MLX");
 	load_textures(game);
 	game->frame.img = mlx_new_image(game->mlx, game->win_w, game->win_h);
 	if (!game->frame.img)
-		ft_handler_error("Error\nFailed to create frame image");
+		fatal_init_error(game, "Error\nFailed to create frame image");
 	if (mlx_image_to_window(game->mlx, game->frame.img, 0, 0) < 0)
-		ft_handler_error("Error\nFailed to put attach frame to window");
+		fatal_init_error(game, "Error\nFailed to put attach frame to window");
 	render_base(game);
 }
 

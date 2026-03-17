@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 12:59:16 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/16 11:10:36 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:37:23 by ctaboada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ static int	calc_tex_x(t_game *game, t_dda *dda,
 		wall_x = game->player.x + perp_dist * dda->ray_dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * (double)tex->width);
-	if (dda->side == 0 && dda->ray_dir_x > 0)
-		tex_x = tex->width - tex_x - 1;
-	if (dda->side == 1 && dda->ray_dir_y < 0)
+	if ((dda->side == 0 && dda->step_x < 0)
+		|| (dda->side == 1 && dda->step_y > 0))
 		tex_x = tex->width - tex_x - 1;
 	if (tex_x < 0)
 		tex_x = 0;

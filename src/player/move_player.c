@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 12:19:37 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/12 12:19:55 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:59:29 by ctaboada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	can_move_to(t_game *game, double x, double y)
 	return (1);
 }
 
-static void	try_move(t_game *game, double dx, double dy)
+void	try_move(t_game *game, double dx, double dy)
 {
 	double	new_x;
 	double	new_y;
@@ -83,18 +83,7 @@ void	move_player(t_game *game)
 		return ;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		try_move(game, game->player.dir_x * MOVE_SPEED,
-			game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		try_move(game, -game->player.dir_x * MOVE_SPEED,
-			-game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		try_move(game, -game->player.plane_x * MOVE_SPEED,
-			-game->player.plane_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		try_move(game, game->player.plane_x * MOVE_SPEED,
-			game->player.plane_y * MOVE_SPEED);
+	handle_movement(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		rotate_player(game, -ROT_SPEED);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))

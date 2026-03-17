@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:35 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/17 10:59:42 by ctaboada         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:30:21 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int			open_file(char *file);
 int			ft_get_map_height(char **lines, int start);
 int			ft_get_map_width(char **lines, int start, int height);
 int			check_texture_file(char *path);
+int			validate_color_input(char *p, int flag);
 
 // PARSER VALIDATION
 int			ft_validate_config(t_game *game);
@@ -155,8 +156,7 @@ void		render_base(t_game *game);
 // MOVE PLAYER
 void		move_player(t_game *game);
 void		handle_movement(t_game *game);
-void	try_move(t_game *game, double dx, double dy);
-
+void		try_move(t_game *game, double dx, double dy);
 
 // RAYCASTING
 void		render_walls(t_game *game);

@@ -6,11 +6,20 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:24:25 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/16 12:44:20 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:29:39 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int	validate_color_input(char *p, int flag)
+{
+	if (flag)
+		return (ft_handler_error("Duplicate color definition"));
+	if (*p == '\0')
+		return (ft_handler_error("Color missing"));
+	return (0);
+}
 
 int	check_texture_file(char *path)
 {

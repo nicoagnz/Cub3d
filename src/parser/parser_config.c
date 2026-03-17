@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:25:48 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/16 13:05:49 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/17 12:29:53 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,10 @@ static int	parse_rgb_values(int color[3], char **rgb)
 	return (0);
 }
 
-static int	ft_parse_color(int color[3], int *flag, char *p)
+static int	check_rgb_count(char **rgb)
 {
-	char	**rgb;
-	int		i;
+	int	i;
 
-	p = ft_skip_spaces(p);
-	if (*flag)
-		return (ft_handler_error("Duplicate color definition"));
-	if (*p == '\0')
-		return (ft_handler_error("Color missing"));
-	rgb = ft_split(p, ',');
-	if (!rgb)
-		return (ft_handler_error("Malloc failed"));
 	i = 0;
 	while (rgb[i])
 		i++;
@@ -57,6 +48,21 @@ static int	ft_parse_color(int color[3], int *flag, char *p)
 		ft_free_split(rgb);
 		return (ft_handler_error("Invalid color format"));
 	}
+	return (0);
+}
+
+static int	ft_parse_color(int color[3], int *flag, char *p)
+{
+	char	**rgb;
+
+	p = ft_skip_spaces(p);
+	if (validate_color_input(p, *flag) != 0)
+		return (1);
+	rgb = ft_split(p, ',');
+	if (!rgb)
+		return (ft_handler_error("Malloc failed"));
+	if (check_rgb_count(rgb) != 0)
+		return (1);
 	if (parse_rgb_values(color, rgb) != 0)
 	{
 		ft_free_split(rgb);

@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctaboada <ctaboada@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: nikotina <nikotina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:30:31 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/17 12:41:31 by ctaboada         ###   ########.fr       */
+/*   Updated: 2026/03/18 12:07:06 by nikotina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-static void	fatal_init_error(t_game *game, char *msg)
-{
-	ft_free_game(game);
-	ft_validate_error(msg);
-}
 
 void	load_textures(t_game *game)
 {

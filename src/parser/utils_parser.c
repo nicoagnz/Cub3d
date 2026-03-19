@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:24:25 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/17 12:29:39 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:40:29 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	check_texture_file(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
+	{
+		ft_printf("Error: Cannot open texture file '%s'\n", path);
 		return (1);
+	}
 	close(fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nacuna-g <nacuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 12:29:31 by nacuna-g          #+#    #+#             */
-/*   Updated: 2026/03/16 13:07:35 by nacuna-g         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:40:46 by nacuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ static int	validate_colors(t_config *cfg)
 
 static int	validate_textures(t_config *cfg)
 {
-	if (!cfg->tex_no || !cfg->tex_so
-		|| !cfg->tex_we || !cfg->tex_ea)
-		return (ft_handler_error("Missing texture"));
 	if (*cfg->tex_no == '\0'
 		|| *cfg->tex_so == '\0'
 		|| *cfg->tex_we == '\0'
